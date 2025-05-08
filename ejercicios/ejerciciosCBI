@@ -1,0 +1,28 @@
+python 
+1. Instalar python(instalar extensiones vsc)
+
+Ejercicios
+1. sumar dos números ingresados por el usuario.
+2. Solicitar al usuario los grados y convertir de Celsius a Fahrenheit.
+
+Condicionales
+1. Ingrese un numero y mostrar si es positivo, negativo o cero.
+2. Validar la contraseña.
+3. solicitar al usuario un numero y mostrar si es par o impar
+4. solicitar un numero y mostrar a que mes del año corresponde.
+
+
+Bucles "for"(para)
+1. Imprimir del 1 al 10
+2. Sumar numero pares hasta el 20.
+3. Tabla de multiplicar.
+
+Bucles "while"(mientras)
+1. solicitar al usuario números y sumarlos hasta que el usuario ingrese 0
+
+
+
+integrador
+1. solicitar al usuario la edad y mostrar a que década pertenece.
+2. solicitar al usuario la contraseña, en caso de tener menos de 8 caracteres ignorar y solicitar de nuevo, si es correcta terminar el programa. 
+3. se necesita saber la cantidad de aprobados/desaprobados de un curso. se deberá solicitar al usuario las notas.
