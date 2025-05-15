@@ -1,0 +1,33 @@
+
+un grupo de amigos tiene problemas al tomar una decisión (Comida).
+Para ello se necesita implementar un sistema de votos en el que puedan 
+elegir su opción entre varias disponibles.
+
+tener en cuenta: 
+	1. Solo se puede votar una vez
+	2. Es totalmente anónima
+	3. Las opciones serán proporcionadas por los mismos usuarios.
+
+Utilizar solamente...
+python, metodos, listas, diccionarios, bucles (for o while), 
+condicionales if elif else.
+
+Casos uso: 
+	x 1. comenzar votación ---> cargar datos a votar y mostrarlos 
+	x 2. registro de votantes-> ingresa su nombre 
+	x 3. validamos -----------> verificamos si la persona ya votó 
+	4. cargar voto ---------> guardado de votacion(persona y opcion elegida)
+	5. mostrar resultados --> listar resultados obtenidos "ganador".
+
+Resultados de CU:
+
+E: opciones 
+S: mostrar opciones 
+
+E: nombre votante 
+
+S: puede o no puede votar(NO termina la votación)
+
+E: eleccion opción 
+
+S: resultados obrenidos
