@@ -5,8 +5,7 @@ votantes = set() # {Marcelo, Maria, Lucas}
 
 print("Bienvenido al sistema de votación")
 
-while True:
-
+def ingresar_datos():
     while True:
         comida = input("ingrese la comida deseada o 'salir' para terminar el ingreso de datos:")
         if comida.lower() == "salir":
@@ -14,11 +13,9 @@ while True:
             break
         elif comida not in opcion:
             opcion.append(comida.title())
-            # print(opcion)
 
-    for op in opcion:
-        votos[op] = 0
 
+def ingresar_votos():
     while True:
         votante = input("Ingrese su nombre o 'salir' para terminar el ingreso de datos: ")
         if votante in votantes:
@@ -32,8 +29,15 @@ while True:
             print(f"Opciones: {opcion}")
             voto = input("ingrese su voto: ").title()
             # print(votantes)
-
             votos[voto] += 1
+
+while True:
+    ingresar_datos()
+
+    for op in opcion:
+        votos[op] = 0
+
+    ingresar_votos()
     break
 
 print("=============Resultados=============")
@@ -50,7 +54,9 @@ for opcion in votos:
     elif votos[opcion] == mayor:
         ganadores.append(opcion)
 
+
 if len(ganadores) == 1:
     print("\n🏆 Ganador:", ganadores[0])
 else:
     print("\n🤝 Empate entre:", ", ".join(ganadores))
+

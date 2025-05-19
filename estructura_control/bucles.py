@@ -24,3 +24,22 @@
 #     contador = contador + 1
 
 
+
+# EJERCICIO MATIAS
+# votantes = []
+
+# def agregar_amigos():
+    
+#     while True:
+#         amigo = input('Escribi un nombre: ')
+#         print ('Escribi "Salir" para volver atras')
+#         if amigo.lower() == 'salir':
+#             print('Termino la carga de datos')
+#             break
+#         elif amigo.lower() not in votantes:
+#             votantes.append(amigo)
+#             print(votantes)
+#         else:
+#             print('Ya estas en la lista wachin')
+
+# agregar_amigos()
