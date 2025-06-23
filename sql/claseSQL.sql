@@ -23,7 +23,7 @@ values('Pepito2', 'Morienega2', 'Av san martin'),
 
 -- ver los datos dentro de la tabla persona
 select * from personas;
--- ver solamente los nombres y apellidos
+-- ver solamente los nombres y apellido
 select nombre, apellido from personas;
 --
 -- modificar direccion de la tabla personas el id 1
@@ -55,3 +55,55 @@ select * from personas where edad >= 25;
 
 -- nosotros sabemos que la direccion tiene por sar (_ 1caracter, %no se cantidad de caracteres)
 select * from personas where direccion like '___sar%';
+
+-- creando tabala de telefonos(atr multivaludo -> personas)
+create table telefonos(
+	id int primary key auto_increment not null,
+    numero varchar(20) not null,
+    tipo varchar(100), -- casa, celular, trabajo
+    persona_id int not null,
+    foreign key (persona_id) references personas(id)
+    );
+    
+select * from personas;
+insert into telefonos(numero, tipo, persona_id)
+values('124123423', 'celular', 1),
+	('4567454567', 'trabajo', '1'),
+    ('456747565', 'casa', '2'),
+    ('456776867', 'celular', '4');
+
+-- join + agregando alias (personas que tienen almenos 1 numero de telefono) 
+select p.id, p.nombre, p.apellido, t.numero, t.tipo from personas p
+join telefonos t on p.id = t.persona_id;
+
+-- inner join
+select p.id, p.nombre, p.apellido, t.numero, t.tipo from personas p
+inner join telefonos t on p.id = t.persona_id;
+
+-- left join
+select p.nombre, p.apellido, ifnull(t.numero, 'sin telefono asociado') as telefonos from personas p left join telefonos t on p.id = t.persona_id;
+select p.nombre, p.apellido, t.numero from personas p left join telefonos t on p.id = t.persona_id;
+
+-- subconsultas
+
+-- solo personas con celular
+select id, nombre, apellido from personas where id in (select persona_id from telefonos where tipo = 'celular');
+
+-- transacciones
+
+select * from telefonos;
+
+start transaction;
+insert into personas(nombre, apellido, direccion)
+values ('pedro','sanchez', 'calle Rivadavia');
+
+set @nueva_persona_id = last_insert_id();
+
+insert into telefonos(numero, tipo, persona_id)
+values ('456457567','celular', @nueva_persona_id);
+
+-- se vuelve los cambios atras
+rollback;
+-- confirma los cambios en la bbdd
+commit;
+
