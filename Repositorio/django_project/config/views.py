@@ -15,10 +15,14 @@ def sumar(request):
     b = int(request.GET.get("b"))
 
     resultado = a + b
-    
+
     return JsonResponse({
             "resultado": resultado
     })
+
+# solicitar nombre y apellido
+
+# solicitar año de nacimiento y calcular edad
 
 
 
