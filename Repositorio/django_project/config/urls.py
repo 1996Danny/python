@@ -23,4 +23,9 @@ urlpatterns = [
     path('', views.saludar),
     path('bienvenida/', views.bienvenida),
     path('sumar/', views.sumar),
+    path('calcular_edad/', views.calcular_edad),
+
+    path('producto/', views.insertar_producto),
+
+    path('personas/', views.listar_personas),
 ]
