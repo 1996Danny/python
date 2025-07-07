@@ -22,6 +22,7 @@ ALLOWED_HOSTS = []
 #     }
 # }
 
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
@@ -32,3 +33,7 @@ DATABASES = {
         'PORT': '3306'
     }
 }
+
+# from . import my_configuracion
+
+# DATABASES = my_configuracion
