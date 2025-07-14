@@ -1,0 +1,32 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de noticias</title>
+    <style>
+        body {
+            background-color: black;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <h1>Noticias</h1>
+
+
+    {% for post in posts %}
+
+        <h2><a href="{% url 'post-detail' post.id %}">{{ post.titulo }}</a></h2>
+        
+        <p>{{ post.fecha_creacion }}</p>
+        
+        <p>{{ post.contenido }}</p>
+        
+        <a href="">{{ post.autor }}</a>
+        
+    {% endfor %}
+    
+</body>
+</html>

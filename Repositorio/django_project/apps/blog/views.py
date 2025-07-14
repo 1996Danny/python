@@ -90,3 +90,41 @@ def mostrarPostContains(request):
         posts_sep += f" ID: {post.id} --> {post.titulo}<br> {post.contenido}<br>{post.fecha_creacion}  <br><br><br>"
 
     return HttpResponse(posts_sep)
+
+
+# ----------- Vistas Basadas en Clases--------------------------------
+
+from django.views.generic import ListView, DetailView, DeleteView, CreateView, UpdateView
+
+# listar todos los posteos
+class PostListView(ListView):
+    model = Post
+    template_name = "post_list.html"
+    context_object_name = "posts"
+
+# obtener un posteo especifico por pk
+class PostDetailView(DetailView):
+    model = Post
+    template_name = "post_detail.html"
+    context_object_name = "posts"
+
+
+# eliminar posteos
+from django.urls import reverse_lazy
+
+class PostDeleteView(DeleteView):
+    model = Post
+    template_name = "post_confirm_delete.html"
+    success_url = reverse_lazy("post-list")
+
+
+#  delete en VBF
+from django.shortcuts import get_object_or_404, redirect
+
+def post_delete(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+    if request.method == "POST":
+        post.delete()
+        return redirect("post-list")
+
+    return render(request, "post_confirm_delete.html", {"post": post})
