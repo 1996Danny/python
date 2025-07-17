@@ -13,10 +13,29 @@
     </style>
 </head>
 <body>
+    {% if posts.imagen %}
+        <img src="{{ posts.imagen.url }}" alt="">
+    {% endif %}
     <h1>{{ posts.titulo }}</h1>
     <p>{{ posts.fecha_creacion }}</p>
     <p>{{ posts.contenido }}</p>
 
     <h2><a href="{% url 'post-delete' posts.id %}">Eliminar</a></h2>
+    <hr>
+    <h2> Comentarios </h2>
+
+    {% if user.is_authenticated %}
+        <form action="{% url 'comentar-post' posts.id %}" method="post">
+            {% csrf_token %}
+            {{ form }}
+            <button type="submit"> comentar </button>
+        </form>
+    {% endif %}
+
+    {% for comentario in posts.comentarios.all %}
+        <h2>{{ comentario.autor }}:</h2> {{ comentario.contenido }} <br>
+    {% endfor %}
+
+
 </body>
 </html>

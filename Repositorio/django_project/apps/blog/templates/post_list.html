@@ -19,6 +19,10 @@
     {% for post in posts %}
 
         <h2><a href="{% url 'post-detail' post.id %}">{{ post.titulo }}</a></h2>
+
+        {% if post.categoria %}
+            <p>Categoria: {{ post.categoria }}</p>
+        {% endif %}
         
         <p>{{ post.fecha_creacion }}</p>
         
