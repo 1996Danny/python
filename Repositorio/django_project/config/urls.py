@@ -33,5 +33,9 @@ urlpatterns = [
     path('personas/', views.listar_personas),
     # Urls de app blog
     path('blog/', include('apps.blog.urls')),
+
+    # urls de auth_app
+    path('accounts/', include('django.contrib.auth.urls')),
+    path('', include('apps.auth_app.urls')),
     
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

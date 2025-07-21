@@ -13,6 +13,21 @@
     </style>
 </head>
 <body>
+    <nav>
+        <li><a href="{% url 'post-list' %}">Inicio</a></li>
+
+        {% if user.is_authenticated %}
+            <h2>Bienvenido, {{ user.username }}</h2>
+            <li><a href="{% url 'logout' %}">Salir</a></li>
+        {% else %}
+            <li><a href="{% url 'register' %}">Registro</a></li>
+            <li><a href="{% url 'login' %}">Inicio sesion</a></li>
+        {%endif%}
+        
+    </nav>
+    
+
+
     <h1>Noticias</h1>
 
 

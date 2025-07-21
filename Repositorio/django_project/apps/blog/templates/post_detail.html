@@ -20,20 +20,29 @@
     <p>{{ posts.fecha_creacion }}</p>
     <p>{{ posts.contenido }}</p>
 
-    <h2><a href="{% url 'post-delete' posts.id %}">Eliminar</a></h2>
+    
+        {% if user.is_authenticated and user == posts.autor %}
+                <h2><a href="{% url 'post-delete' posts.id %}">Eliminar</a></h2>
+        {% endif %}
+
     <hr>
     <h2> Comentarios </h2>
 
     {% if user.is_authenticated %}
         <form action="{% url 'comentar-post' posts.id %}" method="post">
             {% csrf_token %}
-            {{ form }}
+            {{ form.contenido }}
             <button type="submit"> comentar </button>
         </form>
     {% endif %}
 
     {% for comentario in posts.comentarios.all %}
         <h2>{{ comentario.autor }}:</h2> {{ comentario.contenido }} <br>
+                {% if user.is_authenticated and user == posts.autor %}
+                    <a href=""> Eliminar</a>
+                    <a href=""> Modificar</a>
+                {% endif %}
+
     {% endfor %}
 
 
