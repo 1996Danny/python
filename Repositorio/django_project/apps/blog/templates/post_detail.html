@@ -1,20 +1,9 @@
+{% extends 'base.html' %}
+{% load static %}
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Detalle noticia</title>
-        <style>
-        body {
-            background-color: black;
-            color: white;
-        }
-    </style>
-</head>
-<body>
+{% block content%}
     {% if posts.imagen %}
-        <img src="{{ posts.imagen.url }}" alt="">
+        <img src="{{ posts.imagen.url }}" alt="" width="200px" height="200px">
     {% endif %}
     <h1>{{ posts.titulo }}</h1>
     <p>{{ posts.fecha_creacion }}</p>
@@ -23,6 +12,7 @@
     
         {% if user.is_authenticated and user == posts.autor %}
                 <h2><a href="{% url 'post-delete' posts.id %}">Eliminar</a></h2>
+                <h2><a href="{% url 'post-update' posts.id %}">Modificar</a></h2>
         {% endif %}
 
     <hr>
@@ -45,6 +35,4 @@
 
     {% endfor %}
 
-
-</body>
-</html>
+    {% endblock %}

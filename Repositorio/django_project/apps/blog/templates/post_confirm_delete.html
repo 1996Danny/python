@@ -1,24 +1,11 @@
+{% extends 'base.html' %}
+{% load static %}
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Eliminar noticia</title>
-        <style>
-        body {
-            background-color: black;
-            color: white;
-        }
-    </style>
-</head>
-<body>
+{% block content%}
     <h1>¿Desea elimnar la noticia id:{{ object.pk }} titulo: {{ object.titulo }}?</h1>
 
     {% csrf_token %}
     <form method="post">
         <button type="submit"> Confirmar </button> <a href="{% url 'post-list' %}">cancelar</a>
     </form>
-
-</body>
-</html>
+{% endblock %}

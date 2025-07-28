@@ -154,3 +154,20 @@ class ComentarioCreateView(CreateView):
     
     def get_success_url(self):
         return reverse_lazy('post-detail', kwargs={'pk': self.kwargs['pk']})
+    
+# _________________________ posteos fuera del admin___________________
+
+from .forms import CreatePostForm, UpdatePostForm
+
+class PostCreateView(CreateView):
+    model = Post
+    form_class = CreatePostForm
+    template_name = "post_form.html"
+    success_url = reverse_lazy("post-list")
+
+
+class PostUpdateView(UpdateView):
+    model = Post
+    form_class = UpdatePostForm
+    template_name ="post_update_form.html"
+    success_url = reverse_lazy("post-list")

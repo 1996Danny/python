@@ -1,51 +1,33 @@
+{% extends 'base.html'%}
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista de noticias</title>
-    <style>
-        body {
-            background-color: black;
-            color: white;
-        }
-    </style>
-</head>
-<body>
-    <nav>
-        <li><a href="{% url 'post-list' %}">Inicio</a></li>
+{% load static %}
 
-        {% if user.is_authenticated %}
-            <h2>Bienvenido, {{ user.username }}</h2>
-            <li><a href="{% url 'logout' %}">Salir</a></li>
-        {% else %}
-            <li><a href="{% url 'register' %}">Registro</a></li>
-            <li><a href="{% url 'login' %}">Inicio sesion</a></li>
-        {%endif%}
-        
-    </nav>
     
-
+{% block content%}
 
     <h1>Noticias</h1>
 
-
     {% for post in posts %}
+        <div class="card text-center">
+            <div class="card-header">
+                {% if post.categoria %}
+                    <p>Categoria: {{ post.categoria }}</p>
+                {% endif %}
+            </div>
+            <div class="card-body">
+                    {% if post.imagen %}
+                        <img src="{{ post.imagen.url }}" alt="" width="100px" height="100px">
+                    {% endif %}
+                <h5 class="card-title"><a href="{% url 'post-detail' post.id %}">{{ post.titulo }}</a></h5>
 
-        <h2><a href="{% url 'post-detail' post.id %}">{{ post.titulo }}</a></h2>
-
-        {% if post.categoria %}
-            <p>Categoria: {{ post.categoria }}</p>
-        {% endif %}
-        
-        <p>{{ post.fecha_creacion }}</p>
-        
-        <p>{{ post.contenido }}</p>
-        
-        <a href="">{{ post.autor }}</a>
+                <p class="card-text">{{ post.contenido }}</p>
+                <a href="{% url 'post-detail' post.id %}" class="btn btn-primary">Ver mas</a>
+            </div>
+            <div class="card-footer text-body-secondary">
+                {{ post.autor }} : {{ post.fecha_creacion }} 
+            </div>
+        </div>
         
     {% endfor %}
     
-</body>
-</html>
+{% endblock %}

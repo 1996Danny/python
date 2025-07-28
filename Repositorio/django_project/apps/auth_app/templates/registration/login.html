@@ -1,4 +1,7 @@
+{% extends 'base.html' %}
+{% load static %}
 
+{% block content%}
 <form action="" method="post">
     {% csrf_token %}
     <label for="username">Nombre de usuario</label>
@@ -9,3 +12,4 @@
 
     <button type="submit">Iniciar sesion</button>
 </form>
+    {% endblock %}
