@@ -6,13 +6,37 @@ from django.contrib.auth.forms import UserCreationForm
 
 class CustomUserCreationForm(UserCreationForm):
     
-    email = forms.EmailField(required=True)
-    first_name = forms.CharField(label="Nombre", max_length=50)
-    last_name = forms.CharField(label="Apellido", max_length=50)
+    email = forms.EmailField(required=True, 
+                             widget=forms.EmailInput(attrs={
+                                 'class':'form-control', 'placeholder': 'name@example.com' }
+                                 ))
+
+    username = forms.CharField(required=True, label="Nombre de usuario", max_length=50, widget=forms.TextInput(attrs={
+                                 'class':'form-control', 'placeholder': 'Ingrese su nombre de usuario'}
+                                 ))
+
+    first_name = forms.CharField(required=True, label="Nombre", max_length=50, widget=forms.TextInput(attrs={
+                                 'class':'form-control', 'placeholder': 'Ingrese su nombre'}
+                                 ))
+    
+    last_name = forms.CharField(required=True, label="Apellido", max_length=50, widget=forms.TextInput(attrs={
+                                 'class':'form-control', 'placeholder': 'Ingrese su apellido'}
+                                 ))
+    
+    password1 = forms.CharField(required=True, label="Contraseña", widget=forms.PasswordInput(attrs={
+                                 'class':'form-control', 'placeholder': 'Contraseña'}
+                                 ))
+
+    password2 = forms.CharField(required=True, label="Confirmar contraseña", max_length=50, widget=forms.PasswordInput(attrs={
+                                 'class':'form-control', 'placeholder': 'Repetir contraseña'}
+                                 ))
+
 
     class Meta:
         model = User
-        fields = ("username", "first_name", "last_name", "email", "password1")
+        fields = ("username", "first_name", "last_name", "email", "password1", "password2")
+
+
 
     def save(self, commit=True):
         user = super().save(commit=False)

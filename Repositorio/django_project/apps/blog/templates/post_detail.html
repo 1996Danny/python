@@ -2,37 +2,49 @@
 {% load static %}
 
 {% block content%}
-    {% if posts.imagen %}
-        <img src="{{ posts.imagen.url }}" alt="" width="200px" height="200px">
-    {% endif %}
-    <h1>{{ posts.titulo }}</h1>
-    <p>{{ posts.fecha_creacion }}</p>
-    <p>{{ posts.contenido }}</p>
 
-    
-        {% if user.is_authenticated and user == posts.autor %}
-                <h2><a href="{% url 'post-delete' posts.id %}">Eliminar</a></h2>
-                <h2><a href="{% url 'post-update' posts.id %}">Modificar</a></h2>
+    <div class="container mt-5">
+        {% if posts.imagen %}
+            <img class="rounded mx-auto d-block" src="{{ posts.imagen.url }}" alt="" width="200px" height="200px">
         {% endif %}
 
-    <hr>
-    <h2> Comentarios </h2>
+        <h1 class="text-center mb-3" >{{ posts.titulo }}</h1>
+        <p>{{ posts.fecha_creacion }}</p>
+        <p>{{ posts.contenido }}
+            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Repellendus sint saepe eum aliquid, nam eos rerum, hic dolores similique necessitatibus, quae odio quidem doloremque corporis sed quod eveniet quo incidunt.
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias similique ab quia accusantium exercitationem cum facilis aspernatur earum, ipsam, asperiores nisi aperiam dolorum perferendis harum officiis obcaecati molestiae error. Quae?
+        </p>
 
-    {% if user.is_authenticated %}
-        <form action="{% url 'comentar-post' posts.id %}" method="post">
-            {% csrf_token %}
-            {{ form.contenido }}
-            <button type="submit"> comentar </button>
-        </form>
-    {% endif %}
+        
+            {% if user.is_authenticated and user == posts.autor or user.is_staff %}
+            <div class="mb-3">
+                    <button class="btn btn-danger"><h4><a href="{% url 'post-delete' posts.id %}">Eliminar</a></h4></button>
+                    <button class="btn btn-success"><h4><a href="{% url 'post-update' posts.id %}">Modificar</a></h4></button>
+            </div>
+            {% endif %}
 
-    {% for comentario in posts.comentarios.all %}
-        <h2>{{ comentario.autor }}:</h2> {{ comentario.contenido }} <br>
-                {% if user.is_authenticated and user == posts.autor %}
-                    <a href=""> Eliminar</a>
-                    <a href=""> Modificar</a>
-                {% endif %}
+        <hr>
+        <h2> Comentarios </h2>
 
-    {% endfor %}
+        {% if user.is_authenticated %}
+            <form action="{% url 'comentar-post' posts.id %}" method="post">
+                {% csrf_token %}
+                {{ form.contenido }}
+                <button type="submit"> comentar </button>
+            </form>
+        {% endif %}
+
+        {% for comentario in posts.comentarios.all %}
+            <h2>{{ comentario.autor }}:</h2> {{ comentario.contenido }} <br>
+                    {% if user.is_authenticated and user == posts.autor %}
+                        <a href=""> Eliminar</a>
+                        <a href=""> Modificar</a>
+                    {% endif %}
+
+        {% endfor %}
+
+    </div>
+
+
 
     {% endblock %}
