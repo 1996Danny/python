@@ -7,27 +7,41 @@
 
     <h1>Noticias</h1>
 
-    {% for post in posts %}
-        <div class="card text-center " >
-            <div class="card-header">
-                {% if post.categoria %}
-                    <p>Categoria: {{ post.categoria }}</p>
-                {% endif %}
-            </div>
-            <div class="card-body">
-                    {% if post.imagen %}
-                        <img src="{{ post.imagen.url }}" alt="" width="100px" height="100px">
-                    {% endif %}
-                <h5 class="card-title"><a href="{% url 'post-detail' post.id %}">{{ post.titulo }}</a></h5>
 
-                <p class="card-text">{{ post.contenido }}</p>
-                <a href="{% url 'post-detail' post.id %}" class="btn btn-primary">Ver mas</a>
-            </div>
-            <div class="card-footer text-body-secondary">
-                {{ post.autor }} : {{ post.fecha_creacion }} 
-            </div>
+
+    <div class="row mb-4">
+        <div >
+            <form method="get" >
+                <select name="categoria" onchange="this.form.submit()" >
+
+                    <option value="" {% if not categoria_activa %} selected {% endif %}> Todos </option>
+
+                    {% for cat in categoria %}
+                        <option value="{{ cat.id }}" {% if categoria_activa == cat.id %} selected {% endif %}>
+                            {{ cat.nombre }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </form>
         </div>
-        
+    </div>
+
+<div class=" row justify-content-center">
+    <div class="col-md-8 mb-4 d-flex align-items-md-stretch">
+    {% for post in posts %}
+    <div class="card" style="width: 18rem;">
+        {% if post.imagen %}
+            <img class="card-img-top"  src="{{ post.imagen.url }}" width="100px" height="100px">
+        {% endif %}
+
+        <div class="card-body">
+            <h5 class="card-title"><a href="{% url 'post-detail' post.id %}">{{ post.titulo }}</a></h5>
+            <p class="card-text">{{ post.contenido }}</p>
+            <a href="{% url 'post-detail' post.id %}" class="btn btn-primary">Ver mas..</a>
+        </div>
+        </div>
+ 
     {% endfor %}
-    
+     </div>  
+     </div>
 {% endblock %}

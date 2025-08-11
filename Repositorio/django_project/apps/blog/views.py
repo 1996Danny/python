@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 # importamos modelos que se utilizan para las consultas
-from .models import Post, User, Comentario
+from .models import Post, User, Comentario, Categoria
 
 def mostrarPosts(request):
     # select * from Post
@@ -102,6 +102,23 @@ class PostListView(ListView):
     template_name = "post_list.html"
     context_object_name = "posts"
 
+    def get_queryset(self):
+        queryset = Post.objects.all()
+        categoria = self.request.GET.get("categoria")
+        if categoria:
+            queryset = queryset.filter(categoria_id = categoria)
+        return queryset
+
+#  context = {clave : valor } 
+#  contex[clave] = nuevo valor
+#  categoria = "3"
+#  id = 1
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["categoria"] = Categoria.objects.all()
+        context["categoria_activa"] = int(self.request.GET.get("categoria", 0) or 0)
+        return context
+    
 
 from django.forms import modelform_factory
 # obtener un posteo especifico por pk
